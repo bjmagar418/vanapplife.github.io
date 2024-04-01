@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../server';
 import '../App.css';
-
-const vans=[]
-
+import { Link } from 'react-router-dom';
 const Vans = () => {
     const [vans,setVans]= useState([]);
     useEffect(()=>{
         const fetchData=async()=>{
             try{
-             const response =await fetch('/api/vans');
-             const van = await response.json();
-             setVans(van.vans);
+             const response =await fetch(`/api/vans`);
+             const data = await response.json();
+             setVans(data.vans);
             } catch (error){
                 console.log(error);
             }
@@ -25,7 +23,8 @@ const Vans = () => {
            {vans.map((van)=>{
             const{id,name,price,imageUrl,type}= van;
                return (
-                   <div key={id} className='van-tile'>
+                <Link key={id}  to={`/vans/${van.id}`}>
+                   <div className='van-tile'>
                     <img src={imageUrl} alt={imageUrl} style={{height:'200px'}}/>
                     <div className='van-info'>
                   <h3>{name}</h3>
@@ -33,6 +32,7 @@ const Vans = () => {
                     </div>
                   <i className={`van-type ${type} selected`}>{type}</i>
                     </div>
+                    </Link>
                );
            })}
               </div>

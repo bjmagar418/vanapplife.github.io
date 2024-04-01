@@ -10,7 +10,7 @@ const Home = () => {
       <Link>Find your van</Link>
     </div>
     
-  );
+  )
 }
 
 export default Home
